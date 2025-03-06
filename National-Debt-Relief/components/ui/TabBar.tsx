@@ -74,7 +74,7 @@ useEffect(() => {
         const isFocused = state.index === index;
 
         const onPress = () => {
-          
+
             const event = navigation.emit({
             type: 'tabPress',
             target: route.key,

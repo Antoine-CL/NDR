@@ -19,6 +19,7 @@ interface AuthState {
     authenticated: boolean | null;  
     user: User | null;
     isLoading: boolean;
+    isSigningOut: boolean;
 }
 
 interface AuthProps {
@@ -41,6 +42,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         authenticated: null,
         user: null,
         isLoading: false,
+        isSigningOut: false,
     });
 
     useEffect(() => {
@@ -71,6 +73,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                     username: username,
                     role: Role.ADMIN,
                 },
+                isLoading: false,
+                isSigningOut: false
             });
             return { success: true };
         }else if(username === "user" && password === "user"){
@@ -82,6 +86,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                     username: username,
                     role: Role.USER,
                 },
+                isLoading: false,
+                isSigningOut: false
             });
             return { success: true };
         }else{
@@ -92,7 +98,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const logout = async () => {
         localStorage.removeItem(TOKEN_KEY);
-        setAuthState({ token: null, authenticated: false, user: null });
+        setAuthState({ token: null, authenticated: false, user: null, isLoading: false, isSigningOut: false });
     };
 
     return (

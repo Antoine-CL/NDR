@@ -4,7 +4,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
-import { Stack, useRouter, useSegments } from "expo-router";
+import { router, Stack, useRouter, useSegments } from "expo-router";
 import { useEffect, useContext } from "react";
 import { useAuth, AuthProvider } from "../context/AuthContext";
 
@@ -36,12 +36,21 @@ const StackLayout = () => {
         textInverseColor: 'rgb(255, 46, 46)'
       },
     };
-    const [loaded] = useFonts({
-      SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-    });
     const { authState } = useAuth();
-    const segment = useSegments();
+    const segments = useSegments();
     const router = useRouter();
+    const [loaded] = useFonts({ SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf')});
+
+    // Monitor auth state changes
+    useEffect(() => {
+      const inAuthGroup = segments[0] === "(tabs)";
+      
+      if (!authState?.authenticated && inAuthGroup) {
+        router.replace("/");
+      } else if (authState?.authenticated) {
+        router.replace("/(tabs)");
+      }
+    }, [authState]);
 
     useEffect(() => {
       if (loaded) {
@@ -50,30 +59,20 @@ const StackLayout = () => {
     }, [loaded]);
   
     if (!loaded) {
-    
+      return null;
     }
-
-    useEffect(()=>{
-        const inAuthGroup = segment[0] === "(tabs)";
-        
-        if (!authState?.authenticated && inAuthGroup) {
-            router.replace("/");
-        } else if (authState?.authenticated === true) {
-            router.replace("/(tabs)");
-        }
-    }, [authState]);
 
     return (
       <ThemeProvider value={colorScheme === 'dark' ? customDarkTheme : customLightTheme}>
         <KeyboardProvider>
-        <Stack>
-            {authState?.authenticated ? (
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            ) : (
-                <Stack.Screen name="index" options={{ headerShown: false }} />
-            )}
+          <Stack screenOptions={{
+            headerShown: false,
+          }}>
+            <Stack.Screen name="index" />
+            <Stack.Screen name="login" />
+            <Stack.Screen name="(tabs)" />
             <Stack.Screen name="+not-found" />
-        </Stack>
+          </Stack>
         </KeyboardProvider>
       </ThemeProvider>  
     );
