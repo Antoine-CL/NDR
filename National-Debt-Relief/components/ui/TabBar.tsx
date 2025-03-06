@@ -12,10 +12,11 @@ import { useSharedValue } from 'react-native-reanimated';
 function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const { colors } = useTheme();
   const { buildHref } = useLinkBuilder();
+  const [routes, setRoutes] = useState(state.routes.filter(route => route.name === 'index' || route.name === 'banking'));
 
 const [dimensions, setDimensions] = useState({width: 100, height: 20});
 
-const buttonWidth = dimensions.width /  state.routes.length;
+const buttonWidth = dimensions.width /  routes.length;
 
 const onTabBarLayout = (event: LayoutChangeEvent) => {
   const { width, height } = event.nativeEvent.layout;
@@ -60,7 +61,8 @@ useEffect(() => {
              width: buttonWidth - 25,
              }]}>
         </Animated.View>
-      {state.routes.map((route, index) => {
+      {
+      routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
           options.tabBarLabel !== undefined
@@ -102,24 +104,6 @@ useEffect(() => {
                 color={colors.primary}
                 colorFocused={'#fff'}
             />
-
-        //    <PlatformPressable
-        //      key={route.name}
-        //     href={buildHref(route.name, route.params)}
-        //      accessibilityState={isFocused ? { selected: true } : {}}
-        //      accessibilityLabel={options.tabBarAccessibilityLabel}
-        //      testID={options.tabBarButtonTestID}
-        //      onPress={onPress}
-        //      onLongPress={onLongPress}
-        //      style={styles.tabBarItem}
-        //    >
-        //      {icons[route.name as keyof typeof icons]({
-        //           color: isFocused ? colors.primary : colors.text 
-        //           })}
-        //      <Text style={{ color: isFocused ? colors.primary : colors.text }}>
-        //        {label}
-        //      </Text>
-        //    </PlatformPressable>
         );
       })}
     </View>

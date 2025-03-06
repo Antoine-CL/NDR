@@ -18,10 +18,11 @@ interface AuthState {
     token: string | null;
     authenticated: boolean | null;  
     user: User | null;
+    isLoading: boolean;
 }
 
 interface AuthProps {
-    authState: { token: string | null, authenticated: boolean | null, user: User | null };
+    authState: AuthState;
     onRegister: (email: string, password: string) => Promise<any>;
     onLogin: (username: string, password: string) => Promise<any>;
     onLogout: () => Promise<any>;
@@ -39,6 +40,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         token: null,
         authenticated: null,
         user: null,
+        isLoading: false,
     });
 
     useEffect(() => {

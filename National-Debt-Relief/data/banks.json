@@ -1,0 +1,17 @@
+[
+  {
+    "id": "1",
+    "name": "Bank of America",
+    "amount": "1,500.00"
+  },
+  {
+    "id": "2",
+    "name": "Chase",
+    "amount": "850.99"
+  },
+  {
+    "id": "3",
+    "name": "HSBC",
+    "amount": "200.95"
+  }
+]

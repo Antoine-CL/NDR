@@ -1,0 +1,44 @@
+[
+  {
+    "id": "1",
+    "name": "Customer Fee",
+    "type": "customer_fee",
+    "amount": "529.99",
+    "date": "2024-05-01"
+  },
+  {
+    "id": "2",
+    "name": "Transaction Fee",
+    "type": "transaction_fee",
+    "amount": "10.99",
+    "date": "2024-05-02"
+  },
+  {
+    "id": "3",
+    "name": "Deposit",
+    "type": "deposit",
+    "amount": "5.99",
+    "date": "2024-05-02"
+  },
+  {
+    "id": "4",
+    "name": "Customer Fee",
+    "type": "customer_fee",
+    "amount": "234.69",
+    "date": "2024-05-06"
+  },
+  {
+    "id": "5",
+    "name": "Transaction Fee",
+    "type": "transaction_fee",
+    "amount": "8.99",
+    "date": "2024-05-09"
+  },
+  {
+    "id": "6",
+    "name": "Transaction Fee",
+    "type": "transaction_fee",
+    "amount": "136.99",
+    "date": "2024-05-012"
+  }
+]

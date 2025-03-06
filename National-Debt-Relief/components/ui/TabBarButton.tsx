@@ -1,6 +1,6 @@
 import { PlatformPressable, Text } from '@react-navigation/elements';
 import {StyleSheet } from 'react-native';
-import { icon } from '../../constants/icon';
+import featherIcons from '../../constants/FeatherIcons';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { useEffect } from 'react';
 import { opacity } from 'react-native-reanimated/lib/typescript/Colors';
@@ -20,7 +20,7 @@ const TabBarButton = ({routeName, color, colorFocused, label, isFocused, onPress
             }
         });
         const animatedIconStyle = useAnimatedStyle(() => { 
-            const scaleValue = interpolate(scale.value, [0, 1], [1, 1.4]);
+            const scaleValue = interpolate(scale.value, [0, 1], [1, 1.2]);
             const top = interpolate(scale.value, [0, 1], [0, 9]);
             return {
                 transform: [{
@@ -43,7 +43,7 @@ const TabBarButton = ({routeName, color, colorFocused, label, isFocused, onPress
             style={styles.tabBarItem}
           >
             <Animated.View style={animatedIconStyle}>
-            {icon[routeName as keyof typeof icon]({
+            {featherIcons[routeName as keyof typeof featherIcons]({
                  color: isFocused ? colorFocused : color
                  })}
             </Animated.View>
