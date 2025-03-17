@@ -18,3 +18,18 @@ export interface TransactionType {
     amount: string;
     date: string;
 }
+
+export interface CreditorType {
+  id?: string;
+  name: string;
+  amount: string;
+  percentage?: number;
+}
+
+export interface BankingType {
+  id?: string;
+  name: string;
+  accountNumber: string;
+  routingNumber: string;
+  balance: string;
+}

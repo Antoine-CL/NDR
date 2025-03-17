@@ -3,15 +3,18 @@ import React from "react";
 import { Stack } from "expo-router";
 import Header from "@/components/ui/Header";
 import { PieChart } from "react-native-gifted-charts";
-import ExpenseBlock from "@/components/ui/ExpenseBlock";
 import IncomeBlock from "@/components/ui/IncomeBlock";
 import TransactionsBlock from "@/components/ui/transactions/TransactionsBlock";
-import ExpenseList from '@/data/creditors.json';
-import incomeList from '@/data/banks.json';
+import creditorList from '@/data/creditors.json';
 import transactionList from '@/data/transactions.json';
 import { useThemeColor } from "@/hooks/useThemeColor";
 import Colors from "@/constants/Colors";
-import { TransactionType } from "@/types/types";
+import { CreditorType, TransactionType } from "@/types/types";
+import { Screen } from "@/components/ui/screen";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import { styles } from "./banking";
+import CreditorBlock from "@/components/ui/CreditorBlock";
  
 
 const Page = () => {
@@ -25,7 +28,7 @@ const Page = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: backgroundColor,
+      backgroundColor: 'transparent',
       paddingHorizontal: 20,
     },
   });
@@ -33,54 +36,47 @@ const Page = () => {
   const pieData = [
     {
       value: 47,
-      color: '#1f2147',
-      focused: true,
+      color: '#000000',
       text: "47%",
     },
     {
       value: 40,
-      color: '#2A2C60',
+      color: '#000000',
       text: "40%",
     },
     {
       value: 16,
-      color: '#363878',
+      color: '#000000',
       text: "16%",
     },
     { 
       value: 3, 
-      color: "#363878", 
-      gradientCenterColor: "#FF7F97", 
+      color: "#000000", 
       text: "3%" 
     },
   ];
 
   return (
     <>
-      <Stack.Screen
-        options={{
-          header: () => <Header />,
-        }}
-      />
-      <View style={[styles.container, { paddingTop: 40 }]}>
+      <Stack.Screen />
+      <View style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View
+          <Screen>
+            <View
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
+              marginTop: 70,
             }}
           >
-            <View style={{ gap: 10 }}>
-              <Text style={{ color: textColor, fontSize: 16 }}>
-                <Text style={{ fontWeight: 700 }}>Balance</Text>
-              </Text>
-              <Text
-                style={{ color: textColor, fontSize: 36, fontWeight: 700 }}
-              >
-                $1475.<Text style={{ fontSize: 22, fontWeight: 400 }}>00</Text>
-              </Text>
-            </View>
+            <ThemedView style={{ gap: 10 }}>
+                <ThemedView>
+                  <ThemedText type="title">Balance</ThemedText>
+                </ThemedView>
+                <ThemedText style={{ fontSize: 24, fontWeight: 400 }} type="subtitle">$1475.<ThemedText style={{ fontSize: 20, fontWeight: 400 }} type="subtitle">00</ThemedText></ThemedText>
+      
+            </ThemedView>
             <View style={{paddingVertical:20,alignItems:'center'}}>
               <PieChart
                 data={pieData}
@@ -88,7 +84,9 @@ const Page = () => {
                 showGradient
                 gradientCenterColor="#4B7BFF"
                 sectionAutoFocus
-                // focusOnPress
+                focusOnPress
+                strokeWidth={3}
+                strokeColor="#fff"
                 semiCircle
                 radius={70}
                 innerRadius={55}
@@ -98,27 +96,30 @@ const Page = () => {
                     <View
                       style={{ justifyContent: "center", alignItems: "center" }}
                     >
-                      <Text
+                       <ThemedText
+                       type="default"
                         style={{
-                          fontSize: 22,
+                          fontSize: 26,
                           color: "black",
                           fontWeight: "bold",
                         }}
                       >
-                        47%
-                      </Text>
+                         47<ThemedText type="default" style={{fontSize: 12}}>%</ThemedText>
+                      </ThemedText>
                     </View>
                   );
                 }}
               />
+              <ThemedText type="default" style={{fontSize: 8}}>of balance at settlement</ThemedText>
             </View>
           </View>
 
-          <ExpenseBlock expenseList={ExpenseList} />
+          <CreditorBlock creditorList={creditorList as unknown as CreditorType[]} />
 
           {/* <IncomeBlock incomeList={incomeList} /> */}
 
           <TransactionsBlock transactions={transactionList as TransactionType[]} />
+          </Screen>
         </ScrollView>
       </View>
     </>

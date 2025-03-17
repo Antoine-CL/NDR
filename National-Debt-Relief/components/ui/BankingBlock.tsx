@@ -8,22 +8,23 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { ExpenseType } from "@/types/types" 
+import { BankingType, CreditorType } from "@/types/types" 
 import Colors from "@/constants/Colors";
 import { Feather } from "@expo/vector-icons";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { ThemedText } from "../ThemedText";
 
 
-const ExpenseBlock = ({ expenseList }: { expenseList: ExpenseType[] }) => {
-  
+const BankingBlock = ({ bankingList }: { bankingList: BankingType[] }) => {
+
   const [backgroundColor] = useThemeColor({}, 'background');
   const [textColor] = useThemeColor({}, 'text');
 
-  const renderItem: ListRenderItem<Partial<ExpenseType>> = ({
+  const renderItem: ListRenderItem<Partial<BankingType>> = ({
     item,
     index,
   }) => {
+
     if (index == 0) {
       return (
         <TouchableOpacity onPress={() => {}}>
@@ -36,7 +37,6 @@ const ExpenseBlock = ({ expenseList }: { expenseList: ExpenseType[] }) => {
       );
     }
 
-    let amount = item.amount?.split(".");
 
     return (
       <View
@@ -45,13 +45,17 @@ const ExpenseBlock = ({ expenseList }: { expenseList: ExpenseType[] }) => {
         ]}
       >
         <Image source={
-          item.name == "UpStart" ?
+          item?.name == "UpStart" ?
           require('../../assets/images/upstart.png') :
-          item.name == "Wells Fargo" ?
+          item?.name == "Wells Fargo" ?
           require('../../assets/images/wells-fargo.png') :
-          item.name == "Bank of America" ?
+          item?.name == "Bank of America" ?
           require('../../assets/images/bank-of-america.png') :
-          item.name == "Lean Depot" ?
+          item?.name == "Chase" ?
+          require('../../assets/images/chase.png') :
+          item?.name == "HSBC" ?
+          require('../../assets/images/hsbc.png') :
+          item?.name == "Loan Depot" ?
           require('../../assets/images/loan-depot.png') :
           require('../../assets/images/generic-lender.png')
           
@@ -61,42 +65,32 @@ const ExpenseBlock = ({ expenseList }: { expenseList: ExpenseType[] }) => {
           style={[
             styles.expenseBlockTxt1,
             {
-              color:
-                item.name == "Food"
-                  ? textColor
-                  : textColor
+              color: textColor
             },
           ]}
         >
-          {item.name}
+          {item?.name}
         </Text>
         <Text
           style={[
             styles.expenseBlockTxt2,
             {
-              color:
-                item.name == "Food"
-                ? textColor
-                : textColor
+              color: textColor
             },
           ]}
         >
-          ${amount?.[0] ?? '0'}.
-          <Text style={styles.expenseBlockTxt2Span}>{amount?.[1] ?? '00'}</Text>
+          {masking(item?.accountNumber || '')}
         </Text>
         <View style={styles.expenseBlock3View}>
           <Text
             style={[
               styles.expenseBlockTxt1,
               {
-                color:
-                  item.name == "Food"
-                  ? textColor
-                  : textColor
+                color:textColor
               },
             ]}
           >
-            {item.percentage}%
+            ${item?.balance}
           </Text>
         </View>
       </View>
@@ -108,11 +102,11 @@ const ExpenseBlock = ({ expenseList }: { expenseList: ExpenseType[] }) => {
   return (
     <View style={{paddingVertical: 20}}>
        <ThemedText style={styles.sectionTitle}>
-        Creditor <Text style={{ fontWeight: "700" }}>Accounts</Text>
+        Bank <Text style={{ fontWeight: "700" }}>Accounts</Text>
       </ThemedText>
       <FlatList
         style={{paddingVertical: 15}}
-        data={staticItem.concat(expenseList)}
+        data={staticItem.concat(bankingList)}
         renderItem={renderItem}
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -121,7 +115,13 @@ const ExpenseBlock = ({ expenseList }: { expenseList: ExpenseType[] }) => {
   );
 };
 
-export default ExpenseBlock;
+const masking = (data: string) => {
+  let output = data.toString().slice(-4);  
+  output = "****" + output;  
+  return output;
+}
+
+export default BankingBlock;
 
 const styles = StyleSheet.create({
   logo: {
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     borderColor: '#000',
     backgroundColor: '#fff',
     borderWidth: 1,
-    width: 100,
+    width: 140,
     padding: 15,
     borderRadius: 15,
     marginRight: 20,

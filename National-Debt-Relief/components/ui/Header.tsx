@@ -3,26 +3,28 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Colors from "@/constants/Colors";
 import { useThemeColor } from "@/hooks/useThemeColor";
-
+import { LinearGradient } from "expo-linear-gradient";
+import Styles from "@/constants/styles";
 
 const Header = () => {
   const [backgroundColor] = useThemeColor({}, 'background');
   const [textColor] = useThemeColor({}, 'text');
+  const headerHeight = 70;
 
   const styles = StyleSheet.create({
-    container: { 
-      flex: 1, 
-      // backgroundColor: 'red', 
-  
+    background: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 0,
+      height: Styles.headerHeight,
     },
     wrapper: {
       flexDirection: "row",
       justifyContent: "space-between",
-      height: 70,
+      height: Styles.headerHeight,
       alignItems: "center",
       paddingHorizontal: 20,
-      // borderColor: 'blue',
-      // borderWidth: 1,
     },
     userInfoWrapper: { 
       flexDirection: "row", 
@@ -56,10 +58,15 @@ const Header = () => {
   
 
   return (
-    <SafeAreaView style={styles.container}>
       <View
         style={styles.wrapper}
       >
+         <LinearGradient
+        // Background Linear Gradient
+        colors={['rgba(255, 255, 255, 1)', 'rgba(255, 255, 255, 0.4 )', 'rgba(255, 255, 255, 0 )']}
+        locations={[0.5, 0.8, 1]}
+        style={styles.background}
+      />
         <View style={styles.userInfoWrapper}>
           <Image
             source={{ uri: "https://avatars1.githubusercontent.com/u/17858766?s=88&v=4" }}
@@ -81,7 +88,6 @@ const Header = () => {
           </Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
   );
 };
 

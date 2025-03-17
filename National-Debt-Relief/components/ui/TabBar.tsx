@@ -114,7 +114,7 @@ useEffect(() => {
 export const styles = StyleSheet.create({
   tabBar: {
     position: 'absolute',
-    bottom: 50,
+    bottom: 30,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

@@ -7,9 +7,10 @@ import 'react-native-reanimated';
 import { router, Stack, useRouter, useSegments } from "expo-router";
 import { useEffect, useContext } from "react";
 import { useAuth, AuthProvider } from "../context/AuthContext";
-
+import { StyleSheet } from 'react-native';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -62,7 +63,16 @@ const StackLayout = () => {
       return null;
     }
 
+
+    const styles = StyleSheet.create({
+      container: { 
+        flex: 1,
+      },
+    });
+
     return (
+      <SafeAreaView style={styles.container} edges={['top']}>
+  
       <ThemeProvider value={colorScheme === 'dark' ? customDarkTheme : customLightTheme}>
         <KeyboardProvider>
           <Stack screenOptions={{
@@ -75,6 +85,7 @@ const StackLayout = () => {
           </Stack>
         </KeyboardProvider>
       </ThemeProvider>  
+      </SafeAreaView>
     );
 }
 
