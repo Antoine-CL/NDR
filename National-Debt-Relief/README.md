@@ -10,11 +10,23 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm install
    ```
 
-2. Start the app
+2. Build the app
 
    ```bash
-    npx expo start
+   npx expo run:ios  
    ```
+
+2.1 Build the EAS
+
+```bash
+eas build --platform ios --profile development 
+```
+
+3. Start the app
+
+```bash
+   npx expo start
+```
 
 In the output, you'll find options to open the app in a
 

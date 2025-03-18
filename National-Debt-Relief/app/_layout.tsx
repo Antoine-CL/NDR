@@ -7,11 +7,13 @@ import 'react-native-reanimated';
 import { router, Stack, useRouter, useSegments } from "expo-router";
 import { useEffect, useContext } from "react";
 import { useAuth, AuthProvider } from "../context/AuthContext";
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import "../global.css"  
+import { Feather } from '@expo/vector-icons';
+import tw from 'twrnc';
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -82,6 +84,26 @@ const StackLayout = () => {
             <Stack.Screen name="login" />
             <Stack.Screen name="(tabs)" />
             <Stack.Screen name="+not-found" />
+            <Stack.Screen 
+            name='chat'
+        //     options={{
+        //   title: 'Chat',
+        //   headerShown: true,
+        //   headerStyle: {
+        //     backgroundColor: 'rgb(31, 33, 71)',
+        //   },
+        //   headerTintColor: 'rgb(236, 237, 255)',
+        //   headerLeft: () => (
+        //     <TouchableOpacity 
+        //       style={tw`ml-4`}
+        //       onPress={() => router.back()}
+        //     >
+        //       <Feather name="arrow-left" size={24} color={'rgb(236, 237, 255)'} />
+        //     </TouchableOpacity>
+        //   ),
+        //   headerShadowVisible: false,
+        // }}
+      />
           </Stack>
         </KeyboardProvider>
       </ThemeProvider>  

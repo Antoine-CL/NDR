@@ -10,6 +10,8 @@ import TabBar from '@/components/ui/TabBar';
 import { DefaultTheme, DarkTheme } from '@react-navigation/native';
 import Header from '@/components/ui/Header';
 import React from 'react';
+import { ChatButton } from '@/components/ui/chat/ChatButton';
+
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   const config = {
@@ -25,33 +27,36 @@ export default function TabLayout() {
   };
 
   return (
-    <Tabs
-      tabBar={props => <TabBar {...props} />}
-      screenOptions={{
-        header: () => <Header />,
-        headerTransparent: true,
-        headerShown: true,
-        headerStyle: {
-          marginBottom: 50,
-        },
+    <>
+      <Tabs
+        tabBar={props => <TabBar {...props} />}
+        screenOptions={{
+          header: () => <Header />,
+          headerTransparent: true,
+          headerShown: true,
+          headerStyle: {
+            marginBottom: 50,
+          },
     
-        // tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        tabBarButton: HapticTab,
-        // tabBarBackground: TabBarBackground,
-      }}
-    >
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Dashboard',
+          // tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+          tabBarButton: HapticTab,
+          // tabBarBackground: TabBarBackground,
         }}
-      />
-      <Tabs.Screen
-        name="banking"
-        options={{
-          title: 'Banking',
-        }}
-      />
-    </Tabs>
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: 'Dashboard',
+          }}
+        />
+        <Tabs.Screen
+          name="banking"
+          options={{
+            title: 'Banking',
+          }}
+        />
+      </Tabs>
+      <ChatButton />
+    </>
   );
 }
