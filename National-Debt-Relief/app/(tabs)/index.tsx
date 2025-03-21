@@ -39,7 +39,7 @@ const Page = () => {
       <View style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
  
-          <SummaryBlock balance={1000} percentageOfSettlement={47} />
+          <SummaryBlock balance={1437.5} percentageOfSettlement={47} />
 
           <CreditorBlock creditorList={creditorList as unknown as CreditorType[]} />
 

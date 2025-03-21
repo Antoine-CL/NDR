@@ -130,7 +130,7 @@ export default function ChatScreen() {
         render: async function* () {
           yield <LoadingAI />;
 
-          const balance = 1000;
+          const balance = 1437.5;
           const percentageOfSettlement = 47;
           return {
             component: (
